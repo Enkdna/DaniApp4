@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Misi&oacute;n Daniela: El Reino de los Capibaras Rosados</title>
+  <style>
+    :root {
+      --pink-soft: #FFE4EC;
+      --pink-main: #FF6584;
+      --pink-dark: #C2185B;
+      --brown-capy: #6D4C41;
+      --brown-dark: #3E2723;
+      --blue-accent: #0288D1;
+      --green-ok: #43A047;
+      --red-fail: #E53935;
+      --yellow-star: #FFB300;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Quicksand', system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #FFF0F5 0%, #E8F5E9 50%, #FFF8E1 100%);
+      color: var(--brown-dark);
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 60px;
+      padding: 6px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--pink-dark);
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      max-width: 480px;
+      margin: 0 16px;
+    }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF3E0;
+      color: #E65100;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      border: 2px solid #FFE0B2;
+      cursor: pointer;
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      height: 14px;
+      background: #ECEFF1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #CFD8DC;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #FF7597, #FFCA28);
+      transition: width 0.3s ease;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-badge {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .btn-nav {
+      background: #F5F5F5;
+      border: 2px solid #E0E0E0;
+      padding: 6px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: #FFEBEE;
+      border-color: #FFCDD2;
+      color: var(--pink-dark);
+    }
+
+    .screen {
+      flex: 1;
+      display: none;
+      padding: 12px 16px;
+      height: calc(100vh - 60px);
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PANTALLA INICIAL */
+    #start-screen {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow-y: auto;
+    }
+
+    .hero-card {
+      background: white;
+      padding: 22px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      width: 100%;
+      border: 4px solid var(--pink-soft);
+      margin: auto;
+    }
+
+    .hero-card h1 {
+      font-size: 2.1rem;
+      color: var(--pink-dark);
+      margin-bottom: 4px;
+    }
+
+    .capy-avatar {
+      font-size: 4rem;
+      margin: 4px 0;
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .story-intro {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: #4E342E;
+      margin-bottom: 14px;
+    }
+
+    .mode-select-box {
+      background: #F9FAFB;
+      padding: 12px;
+      border-radius: 16px;
+      border: 2px dashed #CFD8DC;
+      margin-bottom: 14px;
+    }
+
+    .mode-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .btn-mode {
+      flex: 1;
+      max-width: 220px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 3px solid #E0E0E0;
+      background: white;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-mode.active {
+      border-color: var(--pink-main);
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      transform: scale(1.02);
+    }
+
+    .math-subtopics {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+      padding-top: 8px;
+      border-top: 1px dashed #B0BEC5;
+    }
+
+    .btn-chip {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 2px solid #B0BEC5;
+      background: white;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #455A64;
+      cursor: pointer;
+    }
+
+    .btn-chip.active {
+      background: #FFE082;
+      border-color: #FFA000;
+      color: #E65100;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:active { transform: scale(0.96); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FF6584, #D81B60);
+      color: white;
+    }
+
+    .btn-regenerate {
+      background: linear-gradient(135deg, #E0F7FA, #26C6DA);
+      color: #006064;
+    }
+
+    /* =========================================================
+       NUEVO LAYOUT: PREGUNTA ARRIBA + PIZARRA GRANDE ABAJO
+       ========================================================= */
+    .game-vertical-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 100%;
+      width: 100%;
+    }
+
+    .top-question-card {
+      background: white;
+      border-radius: 16px;
+      padding: 12px 18px;
+      box-shadow: var(--shadow);
+      border: 3px solid #F8BBD0;
+      flex-shrink: 0;
+    }
+
+    .top-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .tag {
+      padding: 3px 10px;
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .tip-box {
+      background: #E1F5FE;
+      color: #0277BD;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .question-box {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--brown-dark);
+      margin: 6px 0 10px 0;
+      line-height: 1.35;
+    }
+
+    .reading-passage {
+      background: #FFFDE7;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.5;
+      max-height: 180px;
+      overflow-y: auto;
+      border: 2px dashed #FBC02D;
+      margin-bottom: 10px;
+      color: #37474F;
+      white-space: pre-line;
+    }
+
+    .options-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .options-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: #F8F9FA;
+      border: 2px solid #E0E0E0;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #37474F;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .option-btn.correct {
+      background: #C8E6C9 !important;
+      border-color: #4CAF50 !important;
+      color: #1B5E20 !important;
+      animation: pulseGreen 0.4s ease;
+    }
+
+    .option-btn.wrong {
+      background: #FFCDD2 !important;
+      border-color: #E53935 !important;
+      color: #B71C1C !important;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* PIZARRA GIGANTE INFERIOR */
+    .bottom-canvas-card {
+      background: white;
+      border-radius: 16px;
+      padding: 8px 14px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      border: 3px solid #E2E8F0;
+      flex: 1; /* Ocupa todo el alto disponible */
+      min-height: 250px;
+    }
+
+    .canvas-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      border-bottom: 2px solid #EDF2F7;
+    }
+
+    .toolbar-tools {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .tool-btn.active {
+      border-color: var(--brown-dark);
+      transform: scale(1.1);
+    }
+
+    .color-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+
+    .canvas-wrapper {
+      flex: 1;
+      background: #FAFAFA;
+      border-radius: 12px;
+      position: relative;
+      border: 2px dashed #CFD8DC;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+
+    /* HISTORIAL */
+    #history-screen {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .history-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-table-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      margin: 14px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    th {
+      background: #F5F5F5;
+      color: #37474F;
+    }
+
+    /* FINAL */
+    #end-screen {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .result-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 760px;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .pink-world {
+      border: 6px solid #FF80AB;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCE4EC 100%);
+    }
+
+    .sad-world {
+      border: 6px solid #B0BEC5;
+      background: linear-gradient(180deg, #FFFFFF 0%, #ECEFF1 100%);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>&#x1F43E;</span>
+      <span>Misi&oacute;n Dani</span>
+    </div>
+
+    <div class="header-center">
+      <div class="timer-badge" onclick="toggleTimer()" title="Toca para pausar o continuar">
+        <span>&#x23F1;&#xFE0F;</span>
+        <span id="timer-display">25:00</span>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="stats-badge">&#x2B50; <span id="score-display">0</span>/10</span>
+      <button class="btn-nav" onclick="showHistory()">
+        <span>&#x1F4CA;</span>
+        <span>Historial</span>
+      </button>
+      <button class="btn-nav" onclick="goToHome()">
+        <span>&#x1F3E0;</span>
+        <span>Inicio</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PANTALLA INICIAL -->
+  <main class="screen active" id="start-screen">
+    <div class="hero-card">
+      <h1>&iexcl;Hola, DANIELA! &#x1F338;</h1>
+      <div class="capy-avatar">&#x1F439;&#x2728;</div>
+      <p class="story-intro">
+        Elige tu materia y tema para esta sesi&oacute;n de <strong>25 minutos</strong>.<br>
+        &iexcl;Si logras 7 o m&aacute;s respuestas correctas, desbloqueas la fiesta en el <strong>Reino de los Capibaras Rosados</strong>! &#x1F496;&#x1F349;
+      </p>
+
+      <div class="mode-select-box">
+        <div class="mode-buttons">
+          <button class="btn-mode active" id="mode-math-btn" onclick="selectMode('math')">
+            <span style="font-size: 1.8rem;">&#x1F4D0;</span>
+            <span>Matem&aacute;ticas</span>
+            <small style="color: #616161;">Ecuaciones, Descomposici&oacute;n y m&aacute;s</small>
+          </button>
+          <button class="btn-mode" id="mode-lang-btn" onclick="selectMode('lang')">
+            <span style="font-size: 1.8rem;">&#x1F4DA;</span>
+            <span>Lenguaje</span>
+            <small style="color: #616161;">Lectura y vocabulario</small>
+          </button>
+        </div>
+
+        <div id="math-subtopics-panel">
+          <p style="font-size: 0.95rem; font-weight: bold; margin-bottom: 6px; color: #455A64;">Elige el tema de matem&aacute;ticas:</p>
+          <div class="math-subtopics">
+            <button class="btn-chip active" onclick="selectSubtopic('mix', this)">&#x1F31F; Todas Mezcladas</button>
+            <button class="btn-chip" onclick="selectSubtopic('ecu', this)">&#x1F9E9; Ecuaciones (X + a = b)</button>
+            <button class="btn-chip" onclick="selectSubtopic('comp', this)">&#x1F3F7;&#xFE0F; Composici&oacute;n y Descomposici&oacute;n</button>
+            <button class="btn-chip" onclick="selectSubtopic('sum', this)">&#x2795; Suma (3 d&iacute;gitos)</button>
+            <button class="btn-chip" onclick="selectSubtopic('sub', this)">&#x2796; Resta con ceros</button>
+            <button class="btn-chip" onclick="selectSubtopic('mul', this)">&#x2716;&#xFE0F; Multiplicaci&oacute;n</button>
+            <button class="btn-chip" onclick="selectSubtopic('div', this)">&#x2797; Divisi&oacute;n</button>
+            <button class="btn-chip" onclick="selectSubtopic('frac', this)">&#x1F370; Fracciones</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="startGame()">&#x1F680; &iexcl;Comenzar Desaf&iacute;o!</button>
+        <button class="btn btn-regenerate" onclick="regeneratePool()">&#x1F504; Regenerar Ejercicios</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- PANTALLA JUEGO: PREGUNTA ARRIBA + PIZARRA GIGANTE ABAJO -->
+  <main class="screen" id="game-screen">
+    <div class="game-vertical-layout">
+      <!-- PARTE SUPERIOR: PREGUNTA Y ALTERNATIVAS -->
+      <div class="top-question-card">
+        <div class="top-header-row">
+          <span class="tag" id="subject-tag">Materia</span>
+          <div class="tip-box" id="tip-box">
+            &#x1F4A1; <strong>Tip para Dani:</strong> Usa la pizarra abajo para despejar la incógnita.
+          </div>
+          <span style="font-weight: bold; color: #78909C;" id="question-counter">1/10</span>
+        </div>
+
+        <div class="reading-passage" id="reading-passage" style="display: none;"></div>
+
+        <div class="question-box" id="question-text">Cargando pregunta...</div>
+
+        <div class="options-row" id="options-container">
+          <!-- 4 alternativas horizontales -->
+        </div>
+      </div>
+
+      <!-- PARTE INFERIOR: PIZARRA GRANDE PARA APPLE PENCIL -->
+      <div class="bottom-canvas-card" id="canvas-card">
+        <div class="canvas-toolbar">
+          <div class="toolbar-tools">
+            <button class="tool-btn active" id="pencil-btn" onclick="setTool('pen')">&#x270F;&#xFE0F;</button>
+            <button class="tool-btn" id="eraser-btn" onclick="setTool('eraser')">&#x1F9F9;</button>
+            <button class="btn-nav" style="padding: 4px 10px; font-size: 0.85rem;" onclick="clearCanvas()">Limpiar Pizarra</button>
+            <span style="font-size: 0.85rem; color: #78909C; margin-left: 6px;">&#x270D;&#xFE0F; Espacio para tu Apple Pencil</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div class="color-btn" style="background: #212121;" onclick="setColor('#212121')"></div>
+            <div class="color-btn" style="background: #D81B60;" onclick="setColor('#D81B60')"></div>
+            <div class="color-btn" style="background: #1E88E5;" onclick="setColor('#1E88E5')"></div>
+            <div class="color-btn" style="background: #43A047;" onclick="setColor('#43A047')"></div>
+          </div>
+        </div>
+
+        <div class="canvas-wrapper" id="canvas-wrapper">
+          <canvas id="pencil-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- PANTALLA HISTORIAL -->
+  <main class="screen" id="history-screen">
+    <div class="history-card">
+      <h2 style="color: var(--pink-dark); display: flex; align-items: center; gap: 10px;">
+        <span>&#x1F4CA;</span>
+        <span>Historial de Evoluci&oacute;n de Daniela</span>
+      </h2>
+      <p style="color: #616161; font-size: 0.95rem; margin-top: 4px;">
+        Aqu&iacute; puedes revisar tus resultados guardados en este iPad.
+      </p>
+
+      <div class="history-table-wrapper">
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>Fecha y Hora</th>
+              <th>Materia / Tema</th>
+              <th>Puntaje</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="history-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="goToHome()">&#x1F3E0; Volver al Inicio</button>
+        <button class="btn-nav" onclick="clearHistoryData()">&#x1F5D1;&#xFE0F; Borrar Historial</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- PANTALLA FINAL -->
+  <main class="screen" id="end-screen">
+    <div class="result-card" id="result-card">
+      <div id="result-content"></div>
+      <div class="btn-group" style="margin-top: 26px;">
+        <button class="btn btn-primary" onclick="restartCurrentGame()">&#x1F504; Reintentar</button>
+        <button class="btn btn-regenerate" onclick="regenerateAndPlay()">&#x2728; Nuevos Ejercicios</button>
+        <button class="btn-nav" style="padding: 12px 20px;" onclick="goToHome()">&#x1F3E0; Men&uacute; Principal</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* AUDIO EFECTOS (SINTETIZADOR WEB AUDIO API) */
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function playSoundSuccess() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(523.25, now);
+        osc1.frequency.exponentialRampToValueAtTime(659.25, now + 0.12);
+        gain1.gain.setValueAtTime(0.3, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.35);
+
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(783.99, now + 0.12);
+        osc2.frequency.exponentialRampToValueAtTime(1046.50, now + 0.3);
+        gain2.gain.setValueAtTime(0.25, now + 0.12);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(now + 0.12);
+        osc2.stop(now + 0.5);
+      } catch (e) {}
+    }
+
+    function playSoundError() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.linearRampToValueAtTime(146.83, now + 0.28);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } catch (e) {}
+    }
+
+    /* TEMPORIZADOR */
+    let timerTotalSeconds = 25 * 60;
+    let timerInterval = null;
+    let timerRunning = false;
+
+    function startTimer() {
+      if (timerRunning) return;
+      timerRunning = true;
+      timerInterval = setInterval(() => {
+        if (timerTotalSeconds > 0) {
+          timerTotalSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          alert("\u23F1\uFE0F \u00A1Bloque de 25 minutos terminado Dani! Momento de descansar.");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+    }
+
+    function toggleTimer() {
+      if (timerRunning) pauseTimer();
+      else startTimer();
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerTotalSeconds / 60);
+      const s = timerTotalSeconds % 60;
+      document.getElementById('timer-display').innerText = 
+        `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    /* =========================================================
+       GENERADOR DINÁMICO DE MATEMÁTICAS
+       ========================================================= */
+    let currentMode = 'math';
+    let selectedSubtopic = 'mix';
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let currentScore = 0;
+
+    function selectMode(mode) {
+      currentMode = mode;
+      document.getElementById('mode-math-btn').classList.toggle('active', mode === 'math');
+      document.getElementById('mode-lang-btn').classList.toggle('active', mode === 'lang');
+      document.getElementById('math-subtopics-panel').style.display = mode === 'math' ? 'block' : 'none';
+    }
+
+    function selectSubtopic(subtopic, btn) {
+      selectedSubtopic = subtopic;
+      document.querySelectorAll('.btn-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function shuffle(arr) {
+      return arr.sort(() => Math.random() - 0.5);
+    }
+
+    /* 1. NUEVO: ECUACIONES DE 4° BÁSICO (X + a = b) */
+    function genEquation() {
+      // Ejemplos como en la clase de Dani: X + 13 = 45 -> X = 45 - 13 = 32
+      const a = Math.floor(Math.random() * 35) + 12; // 12 a 46
+      const x = Math.floor(Math.random() * 50) + 10; // 10 a 59
+      const b = x + a;
+
+      return {
+        subject: "Matem\u00E1ticas \u2022 Ecuaciones (Operaci\u00F3n Inversa)",
+        tip: `Para despejar X usa la operaci\u00F3n inversa: X = ${b} \u2212 ${a}. \u00A1R\u00E9stalo en la pizarra!`,
+        passage: null,
+        question: `Encuentra el valor de X en la ecuaci\u00F3n: X + ${a} = ${b}`,
+        correct: `X = ${x}`,
+        options: shuffle([`X = ${x}`, `X = ${x + 10}`, `X = ${x - 5}`, `X = ${b + a}`])
+      };
+    }
+
+    /* 2. NUEVO: COMPOSICIÓN Y DESCOMPOSICIÓN ADITIVA */
+    function genComposition() {
+      const tipo = Math.random() > 0.5 ? 'valor' : 'posicion';
+      const um = Math.floor(Math.random() * 8) + 2; // 2 a 9
+      const c = Math.floor(Math.random() * 9) + 1;  // 1 a 9
+      const d = Math.floor(Math.random() * 9) + 1;  // 1 a 9
+      const u = Math.floor(Math.random() * 8) + 1;  // 1 a 8
+      const numTotal = um * 1000 + c * 100 + d * 10 + u;
+
+      if (tipo === 'valor') {
+        const descr = `${um * 1000} + ${c * 100} + ${d * 10} + ${u}`;
+        return {
+          subject: "Matem\u00E1ticas \u2022 Descomposici\u00F3n por Valor Posicional",
+          tip: "Cada d\u00EDgito vale seg\u00FAn su lugar: UM = miles, C = cientos, D = decenas, U = unidades.",
+          passage: null,
+          question: `\u00BFCu\u00E1l es la descomposici\u00F3n aditiva del n\u00FAmero ${numTotal}?`,
+          correct: descr,
+          options: shuffle([
+            descr,
+            `${um * 100} + ${c * 100} + ${d * 10} + ${u}`,
+            `${um * 1000} + ${c * 10} + ${d * 10} + ${u}`,
+            `${um * 1000} + ${c * 100} + ${d} + ${u}`
+          ])
+        };
+      } else {
+        const descrPos = `${um}UM + ${c}C + ${d}D + ${u}U`;
+        return {
+          subject: "Matem\u00E1ticas \u2022 Descomposici\u00F3n por Posici\u00F3n",
+          tip: `Identifica la posici\u00F3n: ${um} Unidades de Mil, ${c} Centenas, ${d} Decenas, ${u} Unidades.`,
+          passage: null,
+          question: `\u00BFCu\u00E1l es la descomposici\u00F3n seg\u00FAn la posici\u00F3n de ${numTotal}?`,
+          correct: descrPos,
+          options: shuffle([
+            descrPos,
+            `${um}C + ${c}D + ${d}U + ${u}UM`,
+            `${um}UM + ${c}D + ${d}C + ${u}U`,
+            `${um + 1}UM + ${c}C + ${d}D + ${u}U`
+          ])
+        };
+      }
+    }
+
+    function genSum3Digits() {
+      const a = Math.floor(Math.random() * 450) + 260;
+      const b = Math.floor(Math.random() * 350) + 190;
+      const ans = a + b;
+      return {
+        subject: "Matem\u00E1ticas \u2022 Suma con Reserva",
+        tip: "\u00A1Alinea unidades, decenas y centenas en la pizarra y suma la reserva!",
+        passage: null,
+        question: `Resuelve en tu pizarra: ${a} + ${b} =`,
+        correct: ans.toString(),
+        options: shuffle([ans.toString(), (ans - 10).toString(), (ans + 100).toString(), (ans + 2).toString()])
+      };
+    }
+
+    function genSub3Digits() {
+      const cent = Math.floor(Math.random() * 4) + 6;
+      const uni = Math.floor(Math.random() * 8) + 1;
+      const a = cent * 100 + uni; // ceros intermedios ej: 704
+      const b = Math.floor(Math.random() * 260) + 240;
+      const ans = a - b;
+      return {
+        subject: "Matem\u00E1ticas \u2022 Resta con Ceros Intermedios",
+        tip: "Si el cero no puede prestar, p\u00EDdele a la centena: se vuelve 10 y luego presta.",
+        passage: null,
+        question: `Resuelve en tu pizarra: ${a} \u2212 ${b} =`,
+        correct: ans.toString(),
+        options: shuffle([ans.toString(), (ans + 10).toString(), (ans - 100).toString(), (ans + 20).toString()])
+      };
+    }
+
+    function genMul3Digits() {
+      const a = Math.floor(Math.random() * 140) + 130;
+      const b = Math.floor(Math.random() * 4) + 3;
+      const ans = a * b;
+      return {
+        subject: "Matem\u00E1ticas \u2022 Multiplicaci\u00F3n de 3 D\u00EDgitos",
+        tip: "Multiplica primero unidades, luego decenas y centenas anotando la reserva arriba.",
+        passage: null,
+        question: `Calcula en la pizarra: ${a} \u00D7 ${b} =`,
+        correct: ans.toString(),
+        options: shuffle([ans.toString(), (ans + 10).toString(), (ans - 20).toString(), (ans + 5).toString()])
+      };
+    }
+
+    function genDiv3Digits() {
+      const divi = Math.floor(Math.random() * 4) + 3;
+      const coci = Math.floor(Math.random() * 70) + 40;
+      const divid = divi * coci;
+      return {
+        subject: "Matem\u00E1ticas \u2022 Divisi\u00F3n de 3 D\u00EDgitos",
+        tip: `\u00BFCu\u00E1ntas veces cabe el ${divi} en el dividendo? Usa la tabla del ${divi}.`,
+        passage: null,
+        question: `Resuelve en la pizarra: ${divid} : ${divi} =`,
+        correct: coci.toString(),
+        options: shuffle([coci.toString(), (coci + 2).toString(), (coci - 3).toString(), (coci + 10).toString()])
+      };
+    }
+
+    function genFraction() {
+      const den = [4, 6, 8, 10][Math.floor(Math.random() * 4)];
+      const n1 = Math.floor(Math.random() * 2) + 1;
+      const n2 = Math.floor(Math.random() * (den - 4)) + 1;
+      const tot = n1 + n2;
+      const ans = `${tot}/${den}`;
+      return {
+        subject: "Matem\u00E1ticas \u2022 Fracciones",
+        tip: "Como tienen igual n\u00FAmero abajo, mant\u00E9n el denominador y suma arriba.",
+        passage: null,
+        question: `\u00BFCu\u00E1nto es ${n1}/${den} + ${n2}/${den}?`,
+        correct: ans,
+        options: shuffle([ans, `${tot}/${den * 2}`, `${tot + 1}/${den}`, `${n1}/${den}`])
+      };
+    }
+
+    function buildMathPool(subtopic) {
+      const list = [];
+      for (let i = 0; i < 10; i++) {
+        if (subtopic === 'ecu') list.push(genEquation());
+        else if (subtopic === 'comp') list.push(genComposition());
+        else if (subtopic === 'sum') list.push(genSum3Digits());
+        else if (subtopic === 'sub') list.push(genSub3Digits());
+        else if (subtopic === 'mul') list.push(genMul3Digits());
+        else if (subtopic === 'div') list.push(genDiv3Digits());
+        else if (subtopic === 'frac') list.push(genFraction());
+        else {
+          // Mezcladas (incluyendo Ecuaciones y Descomposición)
+          if (i === 0 || i === 1) list.push(genEquation());
+          else if (i === 2 || i === 3) list.push(genComposition());
+          else if (i === 4) list.push(genSum3Digits());
+          else if (i === 5) list.push(genSub3Digits());
+          else if (i === 6) list.push(genMul3Digits());
+          else if (i === 7) list.push(genDiv3Digits());
+          else list.push(genFraction());
+        }
+      }
+      return list;
+    }
+
+    /* BANCO DE LENGUAJE */
+    const storiesDB = [
+      {
+        title: "El secreto del tej\u00F3n cartero",
+        text: "En un frondoso bosque viv\u00EDa don Teo, un viejo tej\u00F3n que trabajaba como cartero. Todas las ma\u00F1anas montaba en su bicicleta roja y repart\u00EDa cartas llenas de cari\u00F1o a cada vecino: al pud\u00FA, a la ardilla y a don Oso. Pero don Teo nunca recib\u00EDa cartas para \u00E9l. El gran secreto era que \u00E9l mismo pasaba las noches escribi\u00E9ndolas en silencio para alegrar la vida de todos en el pueblo.",
+        q1: "\u00BFCu\u00E1l era el trabajo de don Teo en el pueblo del bosque?",
+        a1: "Era cartero y repart\u00EDa cartas",
+        tip1: "F\u00EDjate en la primera oraci\u00F3n del cuento.",
+        opts1: ["Era cartero y repart\u00EDa cartas", "Era profesor de la escuela", "Reparaba bicicletas viejas", "Vend\u00EDa le\u00F1a en la plaza"],
+        q2: "\u00BFQui\u00E9n escrib\u00EDa en secreto las cartas que recib\u00EDan los animales?",
+        a2: "El mismo tej\u00F3n don Teo",
+        tip2: "Descubre el secreto que se revela al final de la historia.",
+        opts2: ["El mismo tej\u00F3n don Teo", "El alcalde del pueblo", "Un zorro travieso", "Llegaban desde la ciudad en tren"]
+      },
+      {
+        title: "La haza\u00F1a del colibr\u00ED en el valle",
+        text: "Hubo un verano de tremenda sequ\u00EDa en la cordillera. Las lagunas se secaron y las flores se marchitaban por la falta de agua. Un peque\u00F1o colibr\u00ED no se desanim\u00F3: vol\u00F3 con fuerza hasta la cima del cerro m\u00E1s alto llevando una sola gota de agua en su piquito para pedir ayuda a los esp\u00EDritus de la lluvia y salvar a todo el valle.",
+        q1: "\u00BFQu\u00E9 problema grave afectaba a la cordillera?",
+        a1: "Una sequ\u00EDa que sec\u00F3 las lagunas",
+        tip1: "Busca la causa de la falta de agua en el lugar.",
+        opts1: ["Una sequ\u00EDa que sec\u00F3 las lagunas", "Una lluvia que inund\u00F3 todo", "Un temblor que bot\u00F3 las casas", "Una helada que congel\u00F3 el r\u00EDo"],
+        q2: "\u00BFPor qu\u00E9 el colibr\u00ED vol\u00F3 a lo alto del cerro?",
+        a2: "Para pedir ayuda a los esp\u00EDritus de la lluvia",
+        tip2: "Revisa para qu\u00E9 llevaba una gota en el piquito.",
+        opts2: ["Para pedir ayuda a los esp\u00EDritus de la lluvia", "Para escapar solo y salvarse", "Para buscar gusanos y comer", "Para descansar a la sombra"]
+      },
+      {
+        title: "Gaspar, el perro del muelle",
+        text: "Don Manuel era un viejo pescador que todas las ma\u00F1anas sal\u00EDa a revisar sus botes junto a Gaspar, un perro negro muy fiel. Un d\u00EDa de mucho viento, la gorra favorita de don Manuel cay\u00F3 al mar y la corriente empez\u00F3 a llev\u00E1rsela lejos. Sin dudarlo, Gaspar salt\u00F3 al agua, nad\u00F3 entre las olas y rescat\u00F3 el gorro con sus dientes.",
+        q1: "\u00BFQu\u00E9 pertenencia se le cay\u00F3 a don Manuel al mar?",
+        a1: "Su gorra favorita",
+        tip1: "Revisa qu\u00E9 objeto se llev\u00F3 el viento hacia el agua.",
+        opts1: ["Su gorra favorita", "Su red de pesca", "Un remo de madera", "Su canasto de comida"],
+        q2: "\u00BFQu\u00E9 actitud demostr\u00F3 Gaspar al saltar al mar?",
+        a2: "Valent\u00EDa y lealtad con su due\u00F1o",
+        tip2: "Piensa en su esfuerzo por salvar el gorro de don Manuel.",
+        opts2: ["Valent\u00EDa y lealtad con su due\u00F1o", "Flojera y desinter\u00E9s", "Ganas de escaparse", "Ten\u00EDa mucha hambre"]
+      }
+    ];
+
+    function buildLangPool() {
+      const s = shuffle([...storiesDB]);
+      const s1 = s[0];
+      const s2 = s[1];
+
+      return [
+        {
+          subject: "Lenguaje \u2022 Localizar Informaci\u00F3n",
+          tip: s1.tip1,
+          passage: `\uD83D\uDCD6 Cuento: "${s1.title}"\n${s1.text}`,
+          question: s1.q1,
+          correct: s1.a1,
+          options: shuffle(s1.opts1)
+        },
+        {
+          subject: "Lenguaje \u2022 Inferir y Comprender",
+          tip: s1.tip2,
+          passage: `\uD83D\uDCD6 Cuento: "${s1.title}"\n${s1.text}`,
+          question: s1.q2,
+          correct: s1.a2,
+          options: shuffle(s1.opts2)
+        },
+        {
+          subject: "Lenguaje \u2022 Localizar Informaci\u00F3n",
+          tip: s2.tip1,
+          passage: `\uD83D\uDCD6 Cuento: "${s2.title}"\n${s2.text}`,
+          question: s2.q1,
+          correct: s2.a1,
+          options: shuffle(s2.opts1)
+        },
+        {
+          subject: "Lenguaje \u2022 Comprender el Sentido",
+          tip: s2.tip2,
+          passage: `\uD83D\uDCD6 Cuento: "${s2.title}"\n${s2.text}`,
+          question: s2.q2,
+          correct: s2.a2,
+          options: shuffle(s2.opts2)
+        },
+        {
+          subject: "Lenguaje \u2022 Vocabulario en Contexto",
+          tip: "Reemplaza la palabra en la oraci\u00F3n para ver si tiene el mismo sentido.",
+          passage: "\uD83D\uDCD6 Oraci\u00F3n: 'Los vecinos del campo se organizaron r\u00E1pidamente para regar las plantas marchitas.'",
+          question: "\u00BFQu\u00E9 significa la palabra 'marchitas' en la oraci\u00F3n?",
+          correct: "Secas y sin vida",
+          options: shuffle(["Secas y sin vida", "Verdes y florecidas", "Reci\u00E9n plantadas", "Grandes y firmes"])
+        },
+        {
+          subject: "Lenguaje \u2022 Identificar el Sujeto",
+          tip: "Preg\u00FAntale al verbo: \u00BFQui\u00E9nes juegan?",
+          passage: "\uD83D\uDCD6 Oraci\u00F3n: 'Los ni\u00F1os alegres juegan en la plaza despu\u00E9s del colegio.'",
+          question: "\u00BFCu\u00E1l es el sujeto en la oraci\u00F3n anterior?",
+          correct: "Los ni\u00F1os alegres",
+          options: shuffle(["Los ni\u00F1os alegres", "juegan en la plaza", "despu\u00E9s del colegio", "la plaza"])
+        },
+        {
+          subject: "Lenguaje \u2022 Identificar el Verbo",
+          tip: "El verbo es la palabra que indica la acci\u00F3n que realiza el personaje.",
+          passage: "\uD83D\uDCD6 Oraci\u00F3n: 'El perro Gaspar olfatea las hojas ca\u00EDdas del \u00E1rbol.'",
+          question: "\u00BFCu\u00E1l es el verbo (acci\u00F3n) de la oraci\u00F3n?",
+          correct: "olfatea",
+          options: shuffle(["olfatea", "Gaspar", "hojas ca\u00EDdas", "\u00E1rbol"])
+        },
+        {
+          subject: "Lenguaje \u2022 Regla Ortogr\u00E1fica MB y NV",
+          tip: "Acu\u00E9rdate: siempre se escribe M antes de B, y N antes de V.",
+          passage: "\uD83D\uDCD6 Uso de consonantes en palabras cotidianas.",
+          question: "\u00BFCu\u00E1l de estas palabras est\u00E1 escrita CORRECTAMENTE?",
+          correct: "Sombra",
+          options: shuffle(["Sombra", "Sonbra", "Enpanada", "Inbitaci\u00F3n"])
+        },
+        {
+          subject: "Lenguaje \u2022 Tipos de Texto",
+          tip: "Las f\u00E1bulas son relatos breves donde los personajes suelen ser animales y dejan una ense\u00F1anza.",
+          passage: "\uD83D\uDCD6 Relato breve con personajes de animales que nos ense\u00F1a sobre la amistad.",
+          question: "\u00BFQu\u00E9 tipo de texto suele dejar una moraleja al final?",
+          correct: "Una f\u00E1bula",
+          options: shuffle(["Una f\u00E1bula", "Una noticia del peri\u00F3dico", "Una receta m\u00E9dica", "Un afiche de cine"])
+        },
+        {
+          subject: "Lenguaje \u2022 Opini\u00F3n y Valores",
+          tip: "Ponerse en el lugar de los dem\u00E1s para ayudarlos se llama solidaridad.",
+          passage: "\uD83D\uDCD6 Reflexi\u00F3n sobre ayudar a los amigos sin esperar regalos.",
+          question: "\u00BFQu\u00E9 valor demuestra quien ayuda a los dem\u00E1s con alegr\u00EDa?",
+          correct: "Solidaridad y generosidad",
+          options: shuffle(["Solidaridad y generosidad", "Ego\u00EDsmo", "Curiosidad", "Enojo"])
+        }
+      ];
+    }
+
+    /* HISTORIAL */
+    function saveHistory(subjectName, scoreVal) {
+      try {
+        const history = JSON.parse(localStorage.getItem('dani_quiz_history') || '[]');
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + 
+                        now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+        
+        history.unshift({
+          date: dateStr,
+          subject: subjectName,
+          score: `${scoreVal}/10`,
+          passed: scoreVal >= 7
+        });
+
+        if (history.length > 25) history.pop();
+        localStorage.setItem('dani_quiz_history', JSON.stringify(history));
+      } catch (e) {}
+    }
+
+    function showHistory() {
+      pauseTimer();
+      const tbody = document.getElementById('history-tbody');
+      tbody.innerHTML = '';
+
+      try {
+        const history = JSON.parse(localStorage.getItem('dani_quiz_history') || '[]');
+        if (history.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #9E9E9E; padding: 20px;">A&uacute;n no hay sesiones registradas. &iexcl;Juega una partida para ver tu evoluci&oacute;n!</td></tr>`;
+        } else {
+          history.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${item.date}</td>
+              <td><strong>${item.subject}</strong></td>
+              <td><span style="font-size: 1.1rem; font-weight: bold;">${item.score}</span></td>
+              <td>${item.passed ? '&#x1F338; <span style="color: #2E7D32; font-weight: bold;">Reino Rosado</span>' : '&#x1F327;&#xFE0F; <span style="color: #C62828;">En pr&aacute;ctica</span>'}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (e) {}
+
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('history-screen').classList.add('active');
+    }
+
+    function clearHistoryData() {
+      if (confirm("\u00BFDeseas borrar el historial de Dani?")) {
+        localStorage.removeItem('dani_quiz_history');
+        showHistory();
+      }
+    }
+
+    /* CONTROL DEL JUEGO */
+    function startGame() {
+      currentIndex = 0;
+      currentScore = 0;
+      document.getElementById('score-display').innerText = currentScore;
+
+      if (currentMode === 'math') {
+        currentQuestions = buildMathPool(selectedSubtopic);
+      } else {
+        currentQuestions = buildLangPool();
+      }
+
+      // En matemáticas mostramos la pizarra grande abajo; en lenguaje la ocultamos para más lectura
+      const canvasCard = document.getElementById('canvas-card');
+      if (currentMode === 'lang') {
+        canvasCard.style.display = 'none';
+      } else {
+        canvasCard.style.display = 'flex';
+      }
+
+      showScreen('game-screen');
+      loadQuestion();
+
+      if (currentMode === 'math') {
+        setTimeout(setupCanvas, 60);
+      }
+
+      startTimer();
+    }
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function goToHome() {
+      pauseTimer();
+      showScreen('start-screen');
+    }
+
+    function loadQuestion() {
+      const q = currentQuestions[currentIndex];
+      document.getElementById('question-counter').innerText = `${currentIndex + 1}/10`;
+      document.getElementById('subject-tag').innerText = q.subject;
+      document.getElementById('tip-box').innerHTML = `&#x1F4A1; <strong>Tip para Dani:</strong> ${q.tip}`;
+      document.getElementById('question-text').innerText = q.question;
+
+      const passageEl = document.getElementById('reading-passage');
+      if (q.passage) {
+        passageEl.style.display = 'block';
+        passageEl.innerText = q.passage;
+      } else {
+        passageEl.style.display = 'none';
+      }
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => handleAnswer(btn, opt, q.correct);
+        container.appendChild(btn);
+      });
+
+      const prog = (currentIndex / currentQuestions.length) * 100;
+      document.getElementById('progress-bar').style.width = `${prog}%`;
+
+      if (currentMode === 'math') {
+        clearCanvas();
+      }
+    }
+
+    function handleAnswer(btn, chosen, correct) {
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if (chosen === correct) {
+        btn.classList.add('correct');
+        currentScore++;
+        document.getElementById('score-display').innerText = currentScore;
+        playSoundSuccess();
+      } else {
+        btn.classList.add('wrong');
+        allBtns.forEach(b => {
+          if (b.innerText === correct) b.classList.add('correct');
+        });
+        playSoundError();
+      }
+
+      setTimeout(() => {
+        currentIndex++;
+        if (currentIndex < currentQuestions.length) {
+          loadQuestion();
+        } else {
+          finishGame();
+        }
+      }, 1600);
+    }
+
+    function finishGame() {
+      pauseTimer();
+      document.getElementById('progress-bar').style.width = `100%`;
+      showScreen('end-screen');
+
+      const subName = currentMode === 'math' ? `Matem\u00E1ticas (${selectedSubtopic.toUpperCase()})` : 'Lenguaje y Lectura';
+      saveHistory(subName, currentScore);
+
+      const card = document.getElementById('result-card');
+      const content = document.getElementById('result-content');
+
+      if (currentScore >= 7) {
+        card.className = 'result-card pink-world';
+        content.innerHTML = `
+          <div style="font-size: 5rem;">&#x1F338;&#x1F439;&#x1F451;&#x1F496;</div>
+          <h1 style="color: #D81B60; font-size: 2.4rem; margin: 10px 0;">&iexcl;BIENVENIDA AL REINO ROSADO, DANIELA!</h1>
+          <p style="font-size: 1.25rem; color: #4A148C; line-height: 1.6;">
+            &iexcl;Obtuviste <strong>${currentScore} de 10 puntos</strong>!<br>
+            Los capibaras rosados est&aacute;n festejando en tu honor en las termas m&aacute;gicas.<br>
+            &iexcl;Demostraste que eres sequ&iacute;sima resolviendo y calculando! &#x1F389;&#x1F349;
+          </p>
+        `;
+      } else {
+        card.className = 'result-card sad-world';
+        content.innerHTML = `
+          <div style="font-size: 5rem;">&#x1F327;&#xFE0F;&#x1F439;&#x1F494;</div>
+          <h1 style="color: #455A64; font-size: 2.2rem; margin: 10px 0;">&iexcl;El Capibara se puso triste...!</h1>
+          <p style="font-size: 1.2rem; color: #37474F; line-height: 1.6;">
+            Obtuviste <strong>${currentScore} de 10 puntos</strong>. Falt&oacute; muy poquito para el portal.<br>
+            No te preocupes Dani: revisa el tip, haz el c&aacute;lculo con calma en tu pizarra grande y &iexcl;vamos a intentarlo de nuevo!
+          </p>
+        `;
+      }
+    }
+
+    function restartCurrentGame() {
+      startGame();
+    }
+
+    function regeneratePool() {
+      alert("\u2728 \u00A1Se han generado nuevos n\u00FAmeros, ecuaciones y lecturas!");
+    }
+
+    function regenerateAndPlay() {
+      startGame();
+    }
+
+    /* PIZARRA GRANDE */
+    const canvas = document.getElementById('pencil-canvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let currentColor = '#212121';
+    let currentLineWidth = 3.5;
+    let isEraser = false;
+
+    function setupCanvas() {
+      const wrapper = document.getElementById('canvas-wrapper');
+      if (!wrapper) return;
+      canvas.width = wrapper.clientWidth;
+      canvas.height = wrapper.clientHeight;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+
+    window.addEventListener('resize', () => {
+      if (currentMode === 'math') setupCanvas();
+    });
+
+    canvas.addEventListener('pointerdown', (e) => {
+      isDrawing = true;
+      const rect = canvas.getBoundingClientRect();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      if (isEraser) {
+        ctx.strokeStyle = '#FAFAFA';
+        ctx.lineWidth = 28;
+      } else {
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = currentLineWidth;
+      }
+      ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener('pointerup', () => isDrawing = false);
+    canvas.addEventListener('pointercancel', () => isDrawing = false);
+
+    function setTool(tool) {
+      if (tool === 'eraser') {
+        isEraser = true;
+        document.getElementById('eraser-btn').classList.add('active');
+        document.getElementById('pencil-btn').classList.remove('active');
+      } else {
+        isEraser = false;
+        document.getElementById('pencil-btn').classList.add('active');
+        document.getElementById('eraser-btn').classList.remove('active');
+      }
+    }
+
+    function setColor(color) {
+      setTool('pen');
+      currentColor = color;
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  </script>
+</body>
+</html>
