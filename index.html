@@ -16,8 +16,8 @@
       --green-ok: #43A047;
       --red-fail: #E53935;
       --yellow-star: #FFB300;
-      --shadow: 0 8px 24px rgba(0,0,0,0.08);
-      --radius: 20px;
+      --shadow: 0 4px 16px rgba(0,0,0,0.06);
+      --radius: 16px;
     }
 
     * {
@@ -33,28 +33,31 @@
       background: linear-gradient(135deg, #FFF0F5 0%, #E8F5E9 50%, #FFF8E1 100%);
       color: var(--brown-dark);
       min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
+    /* HEADER COMPACTO */
     header {
-      height: 60px;
-      padding: 6px 18px;
+      height: 52px;
+      padding: 4px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(8px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       z-index: 100;
+      flex-shrink: 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 1.2rem;
+      gap: 6px;
+      font-size: 1.15rem;
       font-weight: 900;
       color: var(--pink-dark);
     }
@@ -62,31 +65,31 @@
     .header-center {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex: 1;
-      max-width: 480px;
-      margin: 0 16px;
+      max-width: 440px;
+      margin: 0 12px;
     }
 
     .timer-badge {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: #FFF3E0;
       color: #E65100;
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-size: 1.05rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.95rem;
       font-weight: 900;
-      border: 2px solid #FFE0B2;
+      border: 1.5px solid #FFE0B2;
       cursor: pointer;
     }
 
     .progress-bar-container {
       flex: 1;
-      height: 14px;
+      height: 12px;
       background: #ECEFF1;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid #CFD8DC;
     }
@@ -105,20 +108,21 @@
     }
 
     .stats-badge {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
     }
 
     .btn-nav {
       background: #F5F5F5;
-      border: 2px solid #E0E0E0;
-      padding: 6px 12px;
-      border-radius: 14px;
+      border: 1.5px solid #E0E0E0;
+      padding: 4px 10px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       transition: all 0.2s;
     }
 
@@ -128,25 +132,27 @@
       color: var(--pink-dark);
     }
 
+    /* PANTALLA PRINCIPAL */
     .screen {
       flex: 1;
       display: none;
-      padding: 12px 16px;
-      height: calc(100vh - 60px);
+      padding: 8px 12px 10px 12px;
+      height: calc(100vh - 52px);
+      overflow: hidden;
     }
 
     .screen.active {
       display: flex;
       flex-direction: column;
-      animation: fadeIn 0.25s ease;
+      animation: fadeIn 0.2s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* PANTALLA INICIAL */
+    /* INICIO */
     #start-screen {
       justify-content: center;
       align-items: center;
@@ -156,23 +162,23 @@
 
     .hero-card {
       background: white;
-      padding: 22px 32px;
+      padding: 20px 30px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      max-width: 900px;
+      max-width: 860px;
       width: 100%;
-      border: 4px solid var(--pink-soft);
+      border: 3px solid var(--pink-soft);
       margin: auto;
     }
 
     .hero-card h1 {
-      font-size: 2.1rem;
+      font-size: 2rem;
       color: var(--pink-dark);
       margin-bottom: 4px;
     }
 
     .capy-avatar {
-      font-size: 4rem;
+      font-size: 3.6rem;
       margin: 4px 0;
       animation: bounce 2s infinite ease-in-out;
     }
@@ -183,41 +189,41 @@
     }
 
     .story-intro {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.4;
       color: #4E342E;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .mode-select-box {
       background: #F9FAFB;
-      padding: 12px;
-      border-radius: 16px;
+      padding: 10px;
+      border-radius: 14px;
       border: 2px dashed #CFD8DC;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .mode-buttons {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .btn-mode {
       flex: 1;
       max-width: 220px;
-      padding: 10px;
-      border-radius: 14px;
-      border: 3px solid #E0E0E0;
+      padding: 8px;
+      border-radius: 12px;
+      border: 2.5px solid #E0E0E0;
       background: white;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       transition: all 0.2s;
     }
 
@@ -232,18 +238,18 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;
-      margin-top: 6px;
-      padding-top: 8px;
+      gap: 6px;
+      margin-top: 4px;
+      padding-top: 6px;
       border-top: 1px dashed #B0BEC5;
     }
 
     .btn-chip {
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 2px solid #B0BEC5;
+      padding: 4px 10px;
+      border-radius: 16px;
+      border: 1.5px solid #B0BEC5;
       background: white;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: bold;
       color: #455A64;
       cursor: pointer;
@@ -258,18 +264,18 @@
     .btn-group {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 10px 22px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 40px;
-      font-size: 1.1rem;
+      border-radius: 30px;
+      font-size: 1.05rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
@@ -289,70 +295,77 @@
     }
 
     /* =========================================================
-       NUEVO LAYOUT: PREGUNTA ARRIBA + PIZARRA GRANDE ABAJO
+       NUEVO LAYOUT: TARJETA SUPERIOR COMPACTA + PIZARRA GIGANTE
        ========================================================= */
     .game-vertical-layout {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       height: 100%;
       width: 100%;
+      flex: 1;
     }
 
+    /* CARD SUPERIOR COMPACTA */
     .top-question-card {
       background: white;
-      border-radius: 16px;
-      padding: 12px 18px;
+      border-radius: var(--radius);
+      padding: 8px 14px 10px 14px;
       box-shadow: var(--shadow);
-      border: 3px solid #F8BBD0;
+      border: 2px solid #F8BBD0;
       flex-shrink: 0;
     }
 
-    .top-header-row {
+    .top-info-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
     .tag {
-      padding: 3px 10px;
+      padding: 2px 8px;
       background: var(--pink-soft);
       color: var(--pink-dark);
-      border-radius: 14px;
+      border-radius: 12px;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
     .tip-box {
       background: #E1F5FE;
       color: #0277BD;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .question-box {
-      font-size: 1.25rem;
+      font-size: 1.18rem;
       font-weight: bold;
       color: var(--brown-dark);
-      margin: 6px 0 10px 0;
-      line-height: 1.35;
+      margin: 4px 0 8px 0;
+      line-height: 1.3;
     }
 
     .reading-passage {
       background: #FFFDE7;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 1rem;
-      line-height: 1.5;
-      max-height: 180px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      max-height: 140px;
       overflow-y: auto;
-      border: 2px dashed #FBC02D;
-      margin-bottom: 10px;
+      border: 1.5px dashed #FBC02D;
+      margin-bottom: 8px;
       color: #37474F;
       white-space: pre-line;
     }
@@ -360,26 +373,25 @@
     .options-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 900px) {
-      .options-row {
-        grid-template-columns: 1fr 1fr;
-      }
+      gap: 8px;
     }
 
     .option-btn {
       background: #F8F9FA;
-      border: 2px solid #E0E0E0;
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 1.1rem;
+      border: 1.5px solid #CFD8DC;
+      border-radius: 10px;
+      padding: 8px 4px;
+      font-size: 1.05rem;
       font-weight: bold;
       color: #37474F;
       cursor: pointer;
       text-align: center;
-      transition: all 0.2s;
+      transition: all 0.15s;
+    }
+
+    .option-btn:hover {
+      background: #FCE4EC;
+      border-color: #F06292;
     }
 
     .option-btn.correct {
@@ -398,27 +410,27 @@
 
     @keyframes pulseGreen {
       0% { transform: scale(1); }
-      50% { transform: scale(1.04); }
+      50% { transform: scale(1.03); }
       100% { transform: scale(1); }
     }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
     }
 
-    /* PIZARRA GIGANTE INFERIOR */
+    /* PIZARRA GIGANTE (MÁXIMA ALTURA) */
     .bottom-canvas-card {
       background: white;
-      border-radius: 16px;
-      padding: 8px 14px;
+      border-radius: var(--radius);
+      padding: 8px 12px 10px 12px;
       display: flex;
       flex-direction: column;
       box-shadow: var(--shadow);
-      border: 3px solid #E2E8F0;
-      flex: 1; /* Ocupa todo el alto disponible */
-      min-height: 250px;
+      border: 2px solid #CFD8DC;
+      flex: 1; /* Se estira en toda la altura del iPad */
+      min-height: 0;
     }
 
     .canvas-toolbar {
@@ -427,25 +439,26 @@
       justify-content: space-between;
       padding-bottom: 6px;
       margin-bottom: 6px;
-      border-bottom: 2px solid #EDF2F7;
+      border-bottom: 1.5px solid #EDF2F7;
+      flex-shrink: 0;
     }
 
     .toolbar-tools {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
     }
 
     .tool-btn {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: 2px solid transparent;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .tool-btn.active {
@@ -454,8 +467,8 @@
     }
 
     .color-btn {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       cursor: pointer;
       border: 2px solid white;
@@ -464,11 +477,14 @@
 
     .canvas-wrapper {
       flex: 1;
+      width: 100%;
+      height: 100%;
       background: #FAFAFA;
       border-radius: 12px;
       position: relative;
-      border: 2px dashed #CFD8DC;
+      border: 1.5px dashed #CFD8DC;
       overflow: hidden;
+      min-height: 0;
     }
 
     canvas {
@@ -477,7 +493,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      touch-action: none;
+      touch-action: none; /* Ideal para Apple Pencil */
     }
 
     /* HISTORIAL */
@@ -511,7 +527,7 @@
     }
 
     th, td {
-      padding: 10px;
+      padding: 8px 12px;
       border-bottom: 1px solid #E0E0E0;
     }
 
@@ -520,7 +536,7 @@
       color: #37474F;
     }
 
-    /* FINAL */
+    /* RESULTADO FINAL */
     #end-screen {
       justify-content: center;
       align-items: center;
@@ -530,19 +546,19 @@
     .result-card {
       background: white;
       border-radius: var(--radius);
-      padding: 32px;
-      max-width: 760px;
+      padding: 30px;
+      max-width: 740px;
       width: 100%;
       box-shadow: var(--shadow);
     }
 
     .pink-world {
-      border: 6px solid #FF80AB;
+      border: 5px solid #FF80AB;
       background: linear-gradient(180deg, #FFFFFF 0%, #FCE4EC 100%);
     }
 
     .sad-world {
-      border: 6px solid #B0BEC5;
+      border: 5px solid #B0BEC5;
       background: linear-gradient(180deg, #FFFFFF 0%, #ECEFF1 100%);
     }
   </style>
@@ -592,19 +608,19 @@
       <div class="mode-select-box">
         <div class="mode-buttons">
           <button class="btn-mode active" id="mode-math-btn" onclick="selectMode('math')">
-            <span style="font-size: 1.8rem;">&#x1F4D0;</span>
+            <span style="font-size: 1.6rem;">&#x1F4D0;</span>
             <span>Matem&aacute;ticas</span>
             <small style="color: #616161;">Ecuaciones, Descomposici&oacute;n y m&aacute;s</small>
           </button>
           <button class="btn-mode" id="mode-lang-btn" onclick="selectMode('lang')">
-            <span style="font-size: 1.8rem;">&#x1F4DA;</span>
+            <span style="font-size: 1.6rem;">&#x1F4DA;</span>
             <span>Lenguaje</span>
             <small style="color: #616161;">Lectura y vocabulario</small>
           </button>
         </div>
 
         <div id="math-subtopics-panel">
-          <p style="font-size: 0.95rem; font-weight: bold; margin-bottom: 6px; color: #455A64;">Elige el tema de matem&aacute;ticas:</p>
+          <p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 4px; color: #455A64;">Elige el tema de matem&aacute;ticas:</p>
           <div class="math-subtopics">
             <button class="btn-chip active" onclick="selectSubtopic('mix', this)">&#x1F31F; Todas Mezcladas</button>
             <button class="btn-chip" onclick="selectSubtopic('ecu', this)">&#x1F9E9; Ecuaciones (X + a = b)</button>
@@ -625,38 +641,38 @@
     </div>
   </main>
 
-  <!-- PANTALLA JUEGO: PREGUNTA ARRIBA + PIZARRA GIGANTE ABAJO -->
+  <!-- PANTALLA JUEGO (COMPACTO ARRIBA + PIZARRA GIGANTE ABAJO) -->
   <main class="screen" id="game-screen">
     <div class="game-vertical-layout">
-      <!-- PARTE SUPERIOR: PREGUNTA Y ALTERNATIVAS -->
+      <!-- PARTE SUPERIOR COMPACTA -->
       <div class="top-question-card">
-        <div class="top-header-row">
+        <div class="top-info-row">
           <span class="tag" id="subject-tag">Materia</span>
           <div class="tip-box" id="tip-box">
             &#x1F4A1; <strong>Tip para Dani:</strong> Usa la pizarra abajo para despejar la incógnita.
           </div>
-          <span style="font-weight: bold; color: #78909C;" id="question-counter">1/10</span>
+          <span style="font-weight: bold; color: #78909C; font-size: 0.9rem;" id="question-counter">1/10</span>
         </div>
 
         <div class="reading-passage" id="reading-passage" style="display: none;"></div>
 
-        <div class="question-box" id="question-text">Cargando pregunta...</div>
+        <div class="question-box" id="question-text">Cargando...</div>
 
         <div class="options-row" id="options-container">
-          <!-- 4 alternativas horizontales -->
+          <!-- 4 alternativas -->
         </div>
       </div>
 
-      <!-- PARTE INFERIOR: PIZARRA GRANDE PARA APPLE PENCIL -->
+      <!-- PARTE INFERIOR: PIZARRA GIGANTE -->
       <div class="bottom-canvas-card" id="canvas-card">
         <div class="canvas-toolbar">
           <div class="toolbar-tools">
             <button class="tool-btn active" id="pencil-btn" onclick="setTool('pen')">&#x270F;&#xFE0F;</button>
             <button class="tool-btn" id="eraser-btn" onclick="setTool('eraser')">&#x1F9F9;</button>
-            <button class="btn-nav" style="padding: 4px 10px; font-size: 0.85rem;" onclick="clearCanvas()">Limpiar Pizarra</button>
-            <span style="font-size: 0.85rem; color: #78909C; margin-left: 6px;">&#x270D;&#xFE0F; Espacio para tu Apple Pencil</span>
+            <button class="btn-nav" style="padding: 3px 8px; font-size: 0.8rem;" onclick="clearCanvas()">Limpiar Pizarra</button>
+            <span style="font-size: 0.8rem; color: #78909C; margin-left: 4px;">&#x270D;&#xFE0F; Pizarra Apple Pencil</span>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div style="display: flex; gap: 6px;">
             <div class="color-btn" style="background: #212121;" onclick="setColor('#212121')"></div>
             <div class="color-btn" style="background: #D81B60;" onclick="setColor('#D81B60')"></div>
             <div class="color-btn" style="background: #1E88E5;" onclick="setColor('#1E88E5')"></div>
@@ -674,12 +690,12 @@
   <!-- PANTALLA HISTORIAL -->
   <main class="screen" id="history-screen">
     <div class="history-card">
-      <h2 style="color: var(--pink-dark); display: flex; align-items: center; gap: 10px;">
+      <h2 style="color: var(--pink-dark); display: flex; align-items: center; gap: 8px; font-size: 1.4rem;">
         <span>&#x1F4CA;</span>
         <span>Historial de Evoluci&oacute;n de Daniela</span>
       </h2>
-      <p style="color: #616161; font-size: 0.95rem; margin-top: 4px;">
-        Aqu&iacute; puedes revisar tus resultados guardados en este iPad.
+      <p style="color: #616161; font-size: 0.9rem; margin-top: 2px;">
+        Resultados guardados en este iPad.
       </p>
 
       <div class="history-table-wrapper">
@@ -707,16 +723,16 @@
   <main class="screen" id="end-screen">
     <div class="result-card" id="result-card">
       <div id="result-content"></div>
-      <div class="btn-group" style="margin-top: 26px;">
+      <div class="btn-group" style="margin-top: 22px;">
         <button class="btn btn-primary" onclick="restartCurrentGame()">&#x1F504; Reintentar</button>
         <button class="btn btn-regenerate" onclick="regenerateAndPlay()">&#x2728; Nuevos Ejercicios</button>
-        <button class="btn-nav" style="padding: 12px 20px;" onclick="goToHome()">&#x1F3E0; Men&uacute; Principal</button>
+        <button class="btn-nav" style="padding: 10px 16px;" onclick="goToHome()">&#x1F3E0; Men&uacute; Principal</button>
       </div>
     </div>
   </main>
 
   <script>
-    /* AUDIO EFECTOS (SINTETIZADOR WEB AUDIO API) */
+    /* EFECTOS DE SONIDO WEB AUDIO API */
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -808,9 +824,7 @@
         `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     }
 
-    /* =========================================================
-       GENERADOR DINÁMICO DE MATEMÁTICAS
-       ========================================================= */
+    /* GENERADOR DE EJERCICIOS */
     let currentMode = 'math';
     let selectedSubtopic = 'mix';
     let currentQuestions = [];
@@ -834,39 +848,38 @@
       return arr.sort(() => Math.random() - 0.5);
     }
 
-    /* 1. NUEVO: ECUACIONES DE 4° BÁSICO (X + a = b) */
+    /* 1. ECUACIONES (X + a = b) */
     function genEquation() {
-      // Ejemplos como en la clase de Dani: X + 13 = 45 -> X = 45 - 13 = 32
       const a = Math.floor(Math.random() * 35) + 12; // 12 a 46
       const x = Math.floor(Math.random() * 50) + 10; // 10 a 59
       const b = x + a;
 
       return {
-        subject: "Matem\u00E1ticas \u2022 Ecuaciones (Operaci\u00F3n Inversa)",
-        tip: `Para despejar X usa la operaci\u00F3n inversa: X = ${b} \u2212 ${a}. \u00A1R\u00E9stalo en la pizarra!`,
+        subject: "Matem\u00E1ticas \u2022 Ecuaci\u00F3n (Inversa)",
+        tip: `Despeja X con la resta: X = ${b} \u2212 ${a}. \u00A1Calcula abajo en la pizarra!`,
         passage: null,
-        question: `Encuentra el valor de X en la ecuaci\u00F3n: X + ${a} = ${b}`,
+        question: `Encuentra el valor de X en: X + ${a} = ${b}`,
         correct: `X = ${x}`,
         options: shuffle([`X = ${x}`, `X = ${x + 10}`, `X = ${x - 5}`, `X = ${b + a}`])
       };
     }
 
-    /* 2. NUEVO: COMPOSICIÓN Y DESCOMPOSICIÓN ADITIVA */
+    /* 2. COMPOSICIÓN Y DESCOMPOSICIÓN */
     function genComposition() {
       const tipo = Math.random() > 0.5 ? 'valor' : 'posicion';
-      const um = Math.floor(Math.random() * 8) + 2; // 2 a 9
-      const c = Math.floor(Math.random() * 9) + 1;  // 1 a 9
-      const d = Math.floor(Math.random() * 9) + 1;  // 1 a 9
-      const u = Math.floor(Math.random() * 8) + 1;  // 1 a 8
+      const um = Math.floor(Math.random() * 8) + 2;
+      const c = Math.floor(Math.random() * 9) + 1;
+      const d = Math.floor(Math.random() * 9) + 1;
+      const u = Math.floor(Math.random() * 8) + 1;
       const numTotal = um * 1000 + c * 100 + d * 10 + u;
 
       if (tipo === 'valor') {
         const descr = `${um * 1000} + ${c * 100} + ${d * 10} + ${u}`;
         return {
-          subject: "Matem\u00E1ticas \u2022 Descomposici\u00F3n por Valor Posicional",
-          tip: "Cada d\u00EDgito vale seg\u00FAn su lugar: UM = miles, C = cientos, D = decenas, U = unidades.",
+          subject: "Matem\u00E1ticas \u2022 Descomposici\u00F3n por Valor",
+          tip: "UM = miles, C = cientos, D = decenas, U = unidades.",
           passage: null,
-          question: `\u00BFCu\u00E1l es la descomposici\u00F3n aditiva del n\u00FAmero ${numTotal}?`,
+          question: `\u00BFCu\u00E1l es la descomposici\u00F3n aditiva de ${numTotal}?`,
           correct: descr,
           options: shuffle([
             descr,
@@ -879,9 +892,9 @@
         const descrPos = `${um}UM + ${c}C + ${d}D + ${u}U`;
         return {
           subject: "Matem\u00E1ticas \u2022 Descomposici\u00F3n por Posici\u00F3n",
-          tip: `Identifica la posici\u00F3n: ${um} Unidades de Mil, ${c} Centenas, ${d} Decenas, ${u} Unidades.`,
+          tip: `Identifica la posici\u00F3n: ${um} Unidades de Mil, ${c} Centenas, etc.`,
           passage: null,
-          question: `\u00BFCu\u00E1l es la descomposici\u00F3n seg\u00FAn la posici\u00F3n de ${numTotal}?`,
+          question: `\u00BFDescomposici\u00F3n por posici\u00F3n de ${numTotal}?`,
           correct: descrPos,
           options: shuffle([
             descrPos,
@@ -899,9 +912,9 @@
       const ans = a + b;
       return {
         subject: "Matem\u00E1ticas \u2022 Suma con Reserva",
-        tip: "\u00A1Alinea unidades, decenas y centenas en la pizarra y suma la reserva!",
+        tip: "Alinea en vertical en la pizarra y suma con la reserva.",
         passage: null,
-        question: `Resuelve en tu pizarra: ${a} + ${b} =`,
+        question: `Resuelve en la pizarra: ${a} + ${b} =`,
         correct: ans.toString(),
         options: shuffle([ans.toString(), (ans - 10).toString(), (ans + 100).toString(), (ans + 2).toString()])
       };
@@ -910,14 +923,14 @@
     function genSub3Digits() {
       const cent = Math.floor(Math.random() * 4) + 6;
       const uni = Math.floor(Math.random() * 8) + 1;
-      const a = cent * 100 + uni; // ceros intermedios ej: 704
+      const a = cent * 100 + uni; // 601 a 908 con cero al medio
       const b = Math.floor(Math.random() * 260) + 240;
       const ans = a - b;
       return {
-        subject: "Matem\u00E1ticas \u2022 Resta con Ceros Intermedios",
-        tip: "Si el cero no puede prestar, p\u00EDdele a la centena: se vuelve 10 y luego presta.",
+        subject: "Matem\u00E1ticas \u2022 Resta con Cero Intermedio",
+        tip: "P\u00EDdele a la centena: el cero se vuelve 10 y luego presta a la unidad.",
         passage: null,
-        question: `Resuelve en tu pizarra: ${a} \u2212 ${b} =`,
+        question: `Resuelve en la pizarra: ${a} \u2212 ${b} =`,
         correct: ans.toString(),
         options: shuffle([ans.toString(), (ans + 10).toString(), (ans - 100).toString(), (ans + 20).toString()])
       };
@@ -928,8 +941,8 @@
       const b = Math.floor(Math.random() * 4) + 3;
       const ans = a * b;
       return {
-        subject: "Matem\u00E1ticas \u2022 Multiplicaci\u00F3n de 3 D\u00EDgitos",
-        tip: "Multiplica primero unidades, luego decenas y centenas anotando la reserva arriba.",
+        subject: "Matem\u00E1ticas \u2022 Multiplicaci\u00F3n 3 D\u00EDgitos",
+        tip: "Multiplica unidades, luego decenas y centenas en la pizarra.",
         passage: null,
         question: `Calcula en la pizarra: ${a} \u00D7 ${b} =`,
         correct: ans.toString(),
@@ -942,10 +955,10 @@
       const coci = Math.floor(Math.random() * 70) + 40;
       const divid = divi * coci;
       return {
-        subject: "Matem\u00E1ticas \u2022 Divisi\u00F3n de 3 D\u00EDgitos",
-        tip: `\u00BFCu\u00E1ntas veces cabe el ${divi} en el dividendo? Usa la tabla del ${divi}.`,
+        subject: "Matem\u00E1ticas \u2022 Divisi\u00F3n 3 D\u00EDgitos",
+        tip: `\u00BFCu\u00E1ntas veces cabe el ${divi} en el dividendo?`,
         passage: null,
-        question: `Resuelve en la pizarra: ${divid} : ${divi} =`,
+        question: `Calcula en la pizarra: ${divid} : ${divi} =`,
         correct: coci.toString(),
         options: shuffle([coci.toString(), (coci + 2).toString(), (coci - 3).toString(), (coci + 10).toString()])
       };
@@ -959,7 +972,7 @@
       const ans = `${tot}/${den}`;
       return {
         subject: "Matem\u00E1ticas \u2022 Fracciones",
-        tip: "Como tienen igual n\u00FAmero abajo, mant\u00E9n el denominador y suma arriba.",
+        tip: "Mismo denominador abajo: conserva abajo y suma arriba.",
         passage: null,
         question: `\u00BFCu\u00E1nto es ${n1}/${den} + ${n2}/${den}?`,
         correct: ans,
@@ -978,7 +991,6 @@
         else if (subtopic === 'div') list.push(genDiv3Digits());
         else if (subtopic === 'frac') list.push(genFraction());
         else {
-          // Mezcladas (incluyendo Ecuaciones y Descomposición)
           if (i === 0 || i === 1) list.push(genEquation());
           else if (i === 2 || i === 3) list.push(genComposition());
           else if (i === 4) list.push(genSum3Digits());
@@ -996,37 +1008,37 @@
       {
         title: "El secreto del tej\u00F3n cartero",
         text: "En un frondoso bosque viv\u00EDa don Teo, un viejo tej\u00F3n que trabajaba como cartero. Todas las ma\u00F1anas montaba en su bicicleta roja y repart\u00EDa cartas llenas de cari\u00F1o a cada vecino: al pud\u00FA, a la ardilla y a don Oso. Pero don Teo nunca recib\u00EDa cartas para \u00E9l. El gran secreto era que \u00E9l mismo pasaba las noches escribi\u00E9ndolas en silencio para alegrar la vida de todos en el pueblo.",
-        q1: "\u00BFCu\u00E1l era el trabajo de don Teo en el pueblo del bosque?",
+        q1: "\u00BFCu\u00E1l era el trabajo de don Teo en el pueblo?",
         a1: "Era cartero y repart\u00EDa cartas",
-        tip1: "F\u00EDjate en la primera oraci\u00F3n del cuento.",
+        tip1: "F\u00EDjate en la primera oraci\u00F3n.",
         opts1: ["Era cartero y repart\u00EDa cartas", "Era profesor de la escuela", "Reparaba bicicletas viejas", "Vend\u00EDa le\u00F1a en la plaza"],
-        q2: "\u00BFQui\u00E9n escrib\u00EDa en secreto las cartas que recib\u00EDan los animales?",
+        q2: "\u00BFQui\u00E9n escrib\u00EDa en secreto las cartas?",
         a2: "El mismo tej\u00F3n don Teo",
-        tip2: "Descubre el secreto que se revela al final de la historia.",
-        opts2: ["El mismo tej\u00F3n don Teo", "El alcalde del pueblo", "Un zorro travieso", "Llegaban desde la ciudad en tren"]
+        tip2: "Descubre el secreto al final de la historia.",
+        opts2: ["El mismo tej\u00F3n don Teo", "El alcalde del pueblo", "Un zorro travieso", "Llegaban desde la ciudad"]
       },
       {
         title: "La haza\u00F1a del colibr\u00ED en el valle",
         text: "Hubo un verano de tremenda sequ\u00EDa en la cordillera. Las lagunas se secaron y las flores se marchitaban por la falta de agua. Un peque\u00F1o colibr\u00ED no se desanim\u00F3: vol\u00F3 con fuerza hasta la cima del cerro m\u00E1s alto llevando una sola gota de agua en su piquito para pedir ayuda a los esp\u00EDritus de la lluvia y salvar a todo el valle.",
         q1: "\u00BFQu\u00E9 problema grave afectaba a la cordillera?",
         a1: "Una sequ\u00EDa que sec\u00F3 las lagunas",
-        tip1: "Busca la causa de la falta de agua en el lugar.",
+        tip1: "Busca la causa de la falta de agua.",
         opts1: ["Una sequ\u00EDa que sec\u00F3 las lagunas", "Una lluvia que inund\u00F3 todo", "Un temblor que bot\u00F3 las casas", "Una helada que congel\u00F3 el r\u00EDo"],
         q2: "\u00BFPor qu\u00E9 el colibr\u00ED vol\u00F3 a lo alto del cerro?",
         a2: "Para pedir ayuda a los esp\u00EDritus de la lluvia",
-        tip2: "Revisa para qu\u00E9 llevaba una gota en el piquito.",
-        opts2: ["Para pedir ayuda a los esp\u00EDritus de la lluvia", "Para escapar solo y salvarse", "Para buscar gusanos y comer", "Para descansar a la sombra"]
+        tip2: "Revisa para qu\u00E9 llevaba la gota en el pico.",
+        opts2: ["Para pedir ayuda a los esp\u00EDritus de la lluvia", "Para escapar solo y salvarse", "Para buscar comida", "Para descansar a la sombra"]
       },
       {
         title: "Gaspar, el perro del muelle",
         text: "Don Manuel era un viejo pescador que todas las ma\u00F1anas sal\u00EDa a revisar sus botes junto a Gaspar, un perro negro muy fiel. Un d\u00EDa de mucho viento, la gorra favorita de don Manuel cay\u00F3 al mar y la corriente empez\u00F3 a llev\u00E1rsela lejos. Sin dudarlo, Gaspar salt\u00F3 al agua, nad\u00F3 entre las olas y rescat\u00F3 el gorro con sus dientes.",
         q1: "\u00BFQu\u00E9 pertenencia se le cay\u00F3 a don Manuel al mar?",
         a1: "Su gorra favorita",
-        tip1: "Revisa qu\u00E9 objeto se llev\u00F3 el viento hacia el agua.",
+        tip1: "Revisa qu\u00E9 objeto se llev\u00F3 el viento al agua.",
         opts1: ["Su gorra favorita", "Su red de pesca", "Un remo de madera", "Su canasto de comida"],
-        q2: "\u00BFQu\u00E9 actitud demostr\u00F3 Gaspar al saltar al mar?",
+        q2: "\u00BFQu\u00E9 actitud demostr\u00F3 Gaspar?",
         a2: "Valent\u00EDa y lealtad con su due\u00F1o",
-        tip2: "Piensa en su esfuerzo por salvar el gorro de don Manuel.",
+        tip2: "Piensa en el rescate en las olas.",
         opts2: ["Valent\u00EDa y lealtad con su due\u00F1o", "Flojera y desinter\u00E9s", "Ganas de escaparse", "Ten\u00EDa mucha hambre"]
       }
     ];
@@ -1071,9 +1083,9 @@
         },
         {
           subject: "Lenguaje \u2022 Vocabulario en Contexto",
-          tip: "Reemplaza la palabra en la oraci\u00F3n para ver si tiene el mismo sentido.",
+          tip: "Reemplaza la palabra en la oraci\u00F3n para probar el sentido.",
           passage: "\uD83D\uDCD6 Oraci\u00F3n: 'Los vecinos del campo se organizaron r\u00E1pidamente para regar las plantas marchitas.'",
-          question: "\u00BFQu\u00E9 significa la palabra 'marchitas' en la oraci\u00F3n?",
+          question: "\u00BFQu\u00E9 significa la palabra 'marchitas'?",
           correct: "Secas y sin vida",
           options: shuffle(["Secas y sin vida", "Verdes y florecidas", "Reci\u00E9n plantadas", "Grandes y firmes"])
         },
@@ -1081,13 +1093,13 @@
           subject: "Lenguaje \u2022 Identificar el Sujeto",
           tip: "Preg\u00FAntale al verbo: \u00BFQui\u00E9nes juegan?",
           passage: "\uD83D\uDCD6 Oraci\u00F3n: 'Los ni\u00F1os alegres juegan en la plaza despu\u00E9s del colegio.'",
-          question: "\u00BFCu\u00E1l es el sujeto en la oraci\u00F3n anterior?",
+          question: "\u00BFCu\u00E1l es el sujeto en la oraci\u00F3n?",
           correct: "Los ni\u00F1os alegres",
           options: shuffle(["Los ni\u00F1os alegres", "juegan en la plaza", "despu\u00E9s del colegio", "la plaza"])
         },
         {
           subject: "Lenguaje \u2022 Identificar el Verbo",
-          tip: "El verbo es la palabra que indica la acci\u00F3n que realiza el personaje.",
+          tip: "El verbo es la acci\u00F3n que realiza el personaje.",
           passage: "\uD83D\uDCD6 Oraci\u00F3n: 'El perro Gaspar olfatea las hojas ca\u00EDdas del \u00E1rbol.'",
           question: "\u00BFCu\u00E1l es el verbo (acci\u00F3n) de la oraci\u00F3n?",
           correct: "olfatea",
@@ -1095,25 +1107,25 @@
         },
         {
           subject: "Lenguaje \u2022 Regla Ortogr\u00E1fica MB y NV",
-          tip: "Acu\u00E9rdate: siempre se escribe M antes de B, y N antes de V.",
-          passage: "\uD83D\uDCD6 Uso de consonantes en palabras cotidianas.",
+          tip: "Recuerda: siempre se escribe M antes de B, y N antes de V.",
+          passage: "\uD83D\uDCD6 Uso de consonantes en palabras comunes.",
           question: "\u00BFCu\u00E1l de estas palabras est\u00E1 escrita CORRECTAMENTE?",
           correct: "Sombra",
           options: shuffle(["Sombra", "Sonbra", "Enpanada", "Inbitaci\u00F3n"])
         },
         {
           subject: "Lenguaje \u2022 Tipos de Texto",
-          tip: "Las f\u00E1bulas son relatos breves donde los personajes suelen ser animales y dejan una ense\u00F1anza.",
-          passage: "\uD83D\uDCD6 Relato breve con personajes de animales que nos ense\u00F1a sobre la amistad.",
-          question: "\u00BFQu\u00E9 tipo de texto suele dejar una moraleja al final?",
+          tip: "Las f\u00E1bulas suelen tener animales y dejar una moraleja.",
+          passage: "\uD83D\uDCD6 Relato breve con personajes de animales que ense\u00F1a un valor.",
+          question: "\u00BFQu\u00E9 tipo de texto suele dejar una moraleja?",
           correct: "Una f\u00E1bula",
-          options: shuffle(["Una f\u00E1bula", "Una noticia del peri\u00F3dico", "Una receta m\u00E9dica", "Un afiche de cine"])
+          options: shuffle(["Una f\u00E1bula", "Una noticia del peri\u00F3dico", "Una receta m\u00E9dica", "Un afiche"])
         },
         {
           subject: "Lenguaje \u2022 Opini\u00F3n y Valores",
-          tip: "Ponerse en el lugar de los dem\u00E1s para ayudarlos se llama solidaridad.",
-          passage: "\uD83D\uDCD6 Reflexi\u00F3n sobre ayudar a los amigos sin esperar regalos.",
-          question: "\u00BFQu\u00E9 valor demuestra quien ayuda a los dem\u00E1s con alegr\u00EDa?",
+          tip: "Ayudar a otros con alegr\u00EDa demuestra generosidad.",
+          passage: "\uD83D\uDCD6 Reflexi\u00F3n sobre la amistad verdadera.",
+          question: "\u00BFQu\u00E9 valor demuestra quien ayuda a los dem\u00E1s?",
           correct: "Solidaridad y generosidad",
           options: shuffle(["Solidaridad y generosidad", "Ego\u00EDsmo", "Curiosidad", "Enojo"])
         }
@@ -1155,7 +1167,7 @@
             tr.innerHTML = `
               <td>${item.date}</td>
               <td><strong>${item.subject}</strong></td>
-              <td><span style="font-size: 1.1rem; font-weight: bold;">${item.score}</span></td>
+              <td><span style="font-size: 1.05rem; font-weight: bold;">${item.score}</span></td>
               <td>${item.passed ? '&#x1F338; <span style="color: #2E7D32; font-weight: bold;">Reino Rosado</span>' : '&#x1F327;&#xFE0F; <span style="color: #C62828;">En pr&aacute;ctica</span>'}</td>
             `;
             tbody.appendChild(tr);
@@ -1186,7 +1198,6 @@
         currentQuestions = buildLangPool();
       }
 
-      // En matemáticas mostramos la pizarra grande abajo; en lenguaje la ocultamos para más lectura
       const canvasCard = document.getElementById('canvas-card');
       if (currentMode === 'lang') {
         canvasCard.style.display = 'none';
@@ -1218,7 +1229,7 @@
       const q = currentQuestions[currentIndex];
       document.getElementById('question-counter').innerText = `${currentIndex + 1}/10`;
       document.getElementById('subject-tag').innerText = q.subject;
-      document.getElementById('tip-box').innerHTML = `&#x1F4A1; <strong>Tip para Dani:</strong> ${q.tip}`;
+      document.getElementById('tip-box').innerHTML = `&#x1F4A1; <strong>Tip:</strong> ${q.tip}`;
       document.getElementById('question-text').innerText = q.question;
 
       const passageEl = document.getElementById('reading-passage');
@@ -1244,6 +1255,7 @@
 
       if (currentMode === 'math') {
         clearCanvas();
+        setTimeout(setupCanvas, 30); // Asegurar tamaño completo de pizarra
       }
     }
 
@@ -1271,7 +1283,7 @@
         } else {
           finishGame();
         }
-      }, 1600);
+      }, 1500);
     }
 
     function finishGame() {
@@ -1288,22 +1300,22 @@
       if (currentScore >= 7) {
         card.className = 'result-card pink-world';
         content.innerHTML = `
-          <div style="font-size: 5rem;">&#x1F338;&#x1F439;&#x1F451;&#x1F496;</div>
-          <h1 style="color: #D81B60; font-size: 2.4rem; margin: 10px 0;">&iexcl;BIENVENIDA AL REINO ROSADO, DANIELA!</h1>
-          <p style="font-size: 1.25rem; color: #4A148C; line-height: 1.6;">
+          <div style="font-size: 4.8rem;">&#x1F338;&#x1F439;&#x1F451;&#x1F496;</div>
+          <h1 style="color: #D81B60; font-size: 2.3rem; margin: 10px 0;">&iexcl;BIENVENIDA AL REINO ROSADO, DANIELA!</h1>
+          <p style="font-size: 1.25rem; color: #4A148C; line-height: 1.5;">
             &iexcl;Obtuviste <strong>${currentScore} de 10 puntos</strong>!<br>
-            Los capibaras rosados est&aacute;n festejando en tu honor en las termas m&aacute;gicas.<br>
+            Los capibaras rosados abrieron el portal m&aacute;gico de las termas.<br>
             &iexcl;Demostraste que eres sequ&iacute;sima resolviendo y calculando! &#x1F389;&#x1F349;
           </p>
         `;
       } else {
         card.className = 'result-card sad-world';
         content.innerHTML = `
-          <div style="font-size: 5rem;">&#x1F327;&#xFE0F;&#x1F439;&#x1F494;</div>
-          <h1 style="color: #455A64; font-size: 2.2rem; margin: 10px 0;">&iexcl;El Capibara se puso triste...!</h1>
-          <p style="font-size: 1.2rem; color: #37474F; line-height: 1.6;">
+          <div style="font-size: 4.8rem;">&#x1F327;&#xFE0F;&#x1F439;&#x1F494;</div>
+          <h1 style="color: #455A64; font-size: 2.1rem; margin: 10px 0;">&iexcl;El Capibara se puso triste...!</h1>
+          <p style="font-size: 1.2rem; color: #37474F; line-height: 1.5;">
             Obtuviste <strong>${currentScore} de 10 puntos</strong>. Falt&oacute; muy poquito para el portal.<br>
-            No te preocupes Dani: revisa el tip, haz el c&aacute;lculo con calma en tu pizarra grande y &iexcl;vamos a intentarlo de nuevo!
+            No te preocupes Dani: haz los c&aacute;lculos con calma en tu pizarra grande y &iexcl;vamos a intentarlo de nuevo!
           </p>
         `;
       }
@@ -1314,14 +1326,14 @@
     }
 
     function regeneratePool() {
-      alert("\u2728 \u00A1Se han generado nuevos n\u00FAmeros, ecuaciones y lecturas!");
+      alert("\u2728 \u00A1Se han generado nuevos ejercicios y lecturas!");
     }
 
     function regenerateAndPlay() {
       startGame();
     }
 
-    /* PIZARRA GRANDE */
+    /* PIZARRA GIGANTE APPLE PENCIL */
     const canvas = document.getElementById('pencil-canvas');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
@@ -1354,7 +1366,7 @@
       const rect = canvas.getBoundingClientRect();
       if (isEraser) {
         ctx.strokeStyle = '#FAFAFA';
-        ctx.lineWidth = 28;
+        ctx.lineWidth = 30;
       } else {
         ctx.strokeStyle = currentColor;
         ctx.lineWidth = currentLineWidth;
